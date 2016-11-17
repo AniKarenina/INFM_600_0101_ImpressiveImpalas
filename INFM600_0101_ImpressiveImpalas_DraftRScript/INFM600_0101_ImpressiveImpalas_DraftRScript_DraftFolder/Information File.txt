@@ -1,0 +1,2 @@
+As discussed, new pivot tables and regions added (using vlookup) based on feedback from the project meeting with Dr. Wiggins.
+Draft of R script for the first research question.
