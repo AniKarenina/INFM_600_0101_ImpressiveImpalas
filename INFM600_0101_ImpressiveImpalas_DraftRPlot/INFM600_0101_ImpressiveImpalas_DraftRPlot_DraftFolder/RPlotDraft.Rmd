@@ -1,68 +1,167 @@
 ---
-title: "Draft R Plot"
+title: "RPlotDraft"
 output: html_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+The dataset we have describes tornado occurrences from 2000 - 2014 through all states in the US. We have combined this dataset with information regarding agricultural exports in the country, and have plotted graphs that help visualize our research.
+
+The plots have been enhanced using the 'ggplot2' and 'xkcd' libraries. We load the libraries using the commands given below.
+
+```{r,cache=FALSE, results=FALSE, warning=FALSE, comment=FALSE}
+library(extrafont)
+library(ggplot2)
+library(xkcd)
+font_import(pattern="[X/x]kcd", prompt=FALSE)
+loadfonts(device="win")
 ```
 
-
-```{r }
-summary(cars)
-```
-
-## Including Plots
+The 'xkcd' special fonts are not present by default on Microsoft Windows machines and extra commands need to be added in order to display ggplot2 bar-graphs in 'xkcd' style. We use the commands as shown below to load the required font.
 
 
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
-
-```{r}
-d=read.csv(file.choose())
-```
-
-```{r echo=FALSE}
+```{r,echo=FALSE}
+d=read.csv("C:\\Users\\kavas\\Desktop\\Documents\\Courses\\600_AW\\Project\\Rplot\\Tor_Exp_StateWise_RPlot.csv")
 d.MW=subset(d,d$Region=="Mid-West")
 d.NE=subset(d,d$Region=="North-East")
 d.SE=subset(d,d$Region=="South-East")
 d.W=subset(d,d$Region=="Western")
-library(ggplot2)
 ```
+Q1: How has the tornado occurrence varied over the last 10 years?
 
-```{r}
-ggplot(d.MW,aes(x=d.MW$Year,y=d.MW$Count))+
-geom_bar(stat="identity", fill="hotpink3")+
-xlab("Year")+ylab("Number of Tornadoes")+
-ggtitle("Midwest")
-```
-
-```{r}
-ggplot(d.NE,aes(x=d.NE$Year,y=d.NE$Count))+
-geom_bar(stat="identity", fill="darkcyan")+
-xlab("Year")+ylab("Number of Tornadoes")+
-ggtitle("Northeast")
-```
-
-```{r}
-ggplot(d.SE,aes(x=d.SE$Year,y=d.SE$Count))+
-geom_bar(stat="identity", fill="goldenrod1")+
-xlab("Year")+ylab("Number of Tornadoes")+
-ggtitle("Southeast")
-```
-
-```{r}
-ggplot(d.W,aes(x=d.W$Year,y=d.W$Count))+
-geom_bar(stat="identity", fill="forestgreen")+
-xlab("Year")+ylab("Number of Tornadoes")+
-ggtitle("West")
-```
+The plot below represents how the tornado incidence has varied across the United States between 2000 and 2014. The year is represented on the X-axis, and the tornado count on the Y-axis. As seen in the plot, each bar corresponds to one year. The graph shows that the tornado count has varied across the years, with 2004, 2008 and 2011 experiencing the maximum number of tornadoes. There isn’t a gradual increase or decrease in its incidence.
 
 ```{r}
 ggplot(d,aes(x=d$Year,y=d$Count))+
 geom_bar(stat="identity", fill="indianred")+
 xlab("Year")+ylab("Number of Tornadoes")+
-ggtitle("United States of America")
+ggtitle("United States of America")+
+theme(text = element_text(size = 12, family = "xkcd"))
 ```
 
+Similarly, the next 4 plots also represent the tornado occurrence over 15 years, however, each plot corresponds to one region in the US – Northeast, Southeast, Midwest and West. The graphs should be interpreted in the exact same way as for the one above. Furthermore, it is clear that the Midwest and Southeast have seen a higher tornado occurrence over the years when compared to the other two regions. Tornado occurrence has been the least in the Northeast.
+
+```{r, echo=FALSE}
+ggplot(d.NE,aes(x=d.NE$Year,y=d.NE$Count))+
+geom_bar(stat="identity", fill="darkcyan")+
+xlab("Year")+ylab("Number of Tornadoes")+
+ggtitle("Northeast")+
+theme(text = element_text(size = 12, family = "xkcd"))
+```
+
+```{r, echo=FALSE}
+ggplot(d.SE,aes(x=d.SE$Year,y=d.SE$Count))+
+geom_bar(stat="identity", fill="goldenrod1")+
+xlab("Year")+ylab("Number of Tornadoes")+
+ggtitle("Southeast")
+```
+```{r, echo=FALSE}
+ggplot(d.MW,aes(x=d.MW$Year,y=d.MW$Count))+
+geom_bar(stat="identity", fill="hotpink3")+
+xlab("Year")+ylab("Number of Tornadoes")+
+ggtitle("Midwest")+
+theme(text = element_text(size = 12, family = "xkcd"))
+```
+
+```{r, echo=FALSE}
+ggplot(d.W,aes(x=d.W$Year,y=d.W$Count))+
+geom_bar(stat="identity", fill="forestgreen")+
+xlab("Year")+ylab("Number of Tornadoes")+
+ggtitle("West")+
+theme(text = element_text(size = 12, family = "xkcd"))
+```
+
+Q2: What is the relationship between tornado occurrences/average F-scale of the tornadoes and agricultural exports for regions and states in the United States? 
+
+Next, we examine how the tornado occurrences impact exports from the United States. We chose the Mid-West region to check whether there is correlation between the tornado occurences and exports, as it has the most number of tornado occurrences. The plots below are specific to Mid-West region and describe this relationship. The 3 plots for each region indicate the number of tornado occurences, average F-scale of tornadoes and the total exports respectively. Each line in the export graph below represents one of the categories of products – Agricultural exports, plant exports and animal exports.
+
+```{r, echo=FALSE}
+x=read.csv("C:\\Users\\kavas\\Desktop\\Documents\\Courses\\600_AW\\Project\\Rplot\\Tor_Exp_RegionWise_RPlot.csv")
+ 
+x.MW=subset(x,x$Region=="Mid-West")
+x.NE=subset(x,x$Region=="North-East")
+x.SE=subset(x,x$Region=="South-East")
+x.W=subset(x,x$Region=="Western")
+d.Texas=subset(d,d$State=="TX")
+```
+
+As seen in the plot below, we have imported the xkcd library and have used it to enhance graphics. We have leveraged two functions to use the xkcd theme and also modify the axis to look like a free hand drawing (similar to those in a xkcd comic).
+
+```{r, warning=FALSE}
+ggplot(x.MW,aes(x.MW$Year,x.MW$Sum.of.Count))+
+geom_point() + geom_line(colour="blue")+
+xlab("Year") + ylab("Region-wise Count of Tornadoes") + ggtitle("Number of Tornadoes: Mid-West")+
+theme(text = element_text(size = 12, family = "xkcd"))+
+theme_xkcd()+xkcdaxis(range(x.MW$Year),range(x.MW$Sum.of.Count))
+
+
+ggplot(x.MW,aes(x.MW$Year, x.MW$Average.of.Average.of.F.Scale2))+
+geom_point() + geom_line(colour="red")+
+xlab("Year") + ylab("Avg. of F-scale") + ggtitle("Average of F-scale: Mid-West")+
+theme(text = element_text(size = 12, family = "xkcd"))
+```
+
+```{r}
+ggplot(x.MW, aes(x.MW$Year)) + 
+geom_line(aes(y = x.MW$Sum.of.Agricultural.Exports, colour = "Agricultural Products")) +
+geom_point(aes(y = x.MW$Sum.of.Agricultural.Exports, colour = "Agricultural Products")) +
+geom_line(aes(y = x.MW$Sum.of.Plant.Products, colour = "Plant Products")) +
+geom_point(aes(y = x.MW$Sum.of.Plant.Products, colour = "Plant Products")) +
+geom_line(aes(y = x.MW$Sum.of.Animal.Products, colour = "Animal Products")) +
+geom_point(aes(y = x.MW$Sum.of.Animal.Products, colour = "Animal Products")) +
+xlab("Year") + ylab("Region-wise Exports") + ggtitle("Exports: Mid-West") + labs(color='EXPORTS')+
+theme(text = element_text(size = 12, family = "xkcd"))
+```
+
+Similarly, the plots shown below explain the relationship for the North-East region which has the least number of tornadoes and for the state of Texas which has the highest number of tornadoes.
+
+```{r, echo=FALSE, warning=FALSE}
+ggplot(x.NE,aes(x.NE$Year,x.NE$Sum.of.Count))+
+geom_point() + geom_line(colour="blue")+
+xlab("Year") + ylab("Region-wise Count of Tornadoes") + ggtitle("Number of Tornadoes: North-East")+
+theme(text = element_text(size = 12, family = "xkcd"))+
+theme_xkcd()+xkcdaxis(range(x.NE$Year),range(x.NE$Sum.of.Count))
+
+ggplot(x.NE,aes(x.NE$Year,x.NE$ Average.of.Average.of.F.Scale2))+
+geom_point() + geom_line(colour="red")+
+xlab("Year") + ylab("Avg. of F-scale") + ggtitle("Average of F-scale: North-East")+
+theme(text = element_text(size = 12, family = "xkcd"))
+
+
+ggplot(x.NE, aes(x.NE$Year)) + 
+geom_line(aes(y = x.NE$Sum.of.Agricultural.Exports, colour = "Agricultural Products")) +
+geom_point(aes(y = x.NE$Sum.of.Agricultural.Exports, colour = "Agricultural Products")) +
+geom_line(aes(y = x.NE$Sum.of.Plant.Products, colour = "Plant Products")) +
+geom_point(aes(y = x.NE$Sum.of.Plant.Products, colour = "Plant Products")) +
+geom_line(aes(y = x.NE$Sum.of.Animal.Products, colour = "Animal Products")) +
+geom_point(aes(y = x.NE$Sum.of.Animal.Products, colour = "Animal Products")) +
+xlab("Year") + ylab("Region-wise Exports") + ggtitle("Exports: North-East") + labs(color='EXPORTS')+
+theme(text = element_text(size = 12, family = "xkcd"))
+
+```
+
+```{r, echo=FALSE, warning=FALSE}
+ggplot(d.Texas,aes(d.Texas$Year,d.Texas$Count))+
+geom_point() + geom_line(colour="blue")+
+xlab("Year") + ylab("Count of Tornadoes") + ggtitle("Number of Tornadoes: Texas")+
+theme(text = element_text(size = 12, family = "xkcd"))+
+theme_xkcd()+xkcdaxis(range(d.Texas$Year),range(d.Texas$Count))
+
+ggplot(d.Texas,aes(d.Texas$Year,d.Texas$Average.of.F.Scale))+
+geom_point() + geom_line(colour="red")+
+xlab("Year") + ylab("Avg. of F-scale") + ggtitle("Average of F-scale: Texas")+
+theme(text = element_text(size = 12, family = "xkcd"))
+
+
+ggplot(d.Texas, aes(d.Texas$Year)) + 
+geom_line(aes(y = d.Texas$Agricultural.Exports, colour = "Agricultural Products")) +
+geom_point(aes(y = d.Texas$Agricultural.Exports, colour = "Agricultural Products")) +
+geom_line(aes(y = d.Texas$Plant.Products, colour = "Plant Products")) +
+geom_point(aes(y = d.Texas$Plant.Products, colour = "Plant Products")) +
+geom_line(aes(y = d.Texas$Animal.Products, colour = "Animal Products")) +
+geom_point(aes(y = d.Texas$Animal.Products, colour = "Animal Products")) +
+xlab("Year") + ylab("State-wise Exports") + ggtitle("Exports: Texas") + labs(color='EXPORTS')+
+theme(text = element_text(size = 12, family = "xkcd"))
+```
+
+Using the plots and linear regression model, we conclude that there is a negative correlation between tornado occurrences and each of the exports from the state. Hence, as the number of tornadoes increases, there is a fall in the number of exports for agricultural, plant as well as animal products. 
+
+Word Count: 986
