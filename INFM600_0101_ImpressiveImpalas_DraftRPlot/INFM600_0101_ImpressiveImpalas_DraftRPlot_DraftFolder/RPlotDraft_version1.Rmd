@@ -1,0 +1,68 @@
+---
+title: "Draft R Plot"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r }
+summary(cars)
+```
+
+## Including Plots
+
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+```{r}
+d=read.csv(file.choose())
+```
+
+```{r echo=FALSE}
+d.MW=subset(d,d$Region=="Mid-West")
+d.NE=subset(d,d$Region=="North-East")
+d.SE=subset(d,d$Region=="South-East")
+d.W=subset(d,d$Region=="Western")
+library(ggplot2)
+```
+
+```{r}
+ggplot(d.MW,aes(x=d.MW$Year,y=d.MW$Count))+
+geom_bar(stat="identity", fill="hotpink3")+
+xlab("Year")+ylab("Number of Tornadoes")+
+ggtitle("Midwest")
+```
+
+```{r}
+ggplot(d.NE,aes(x=d.NE$Year,y=d.NE$Count))+
+geom_bar(stat="identity", fill="darkcyan")+
+xlab("Year")+ylab("Number of Tornadoes")+
+ggtitle("Northeast")
+```
+
+```{r}
+ggplot(d.SE,aes(x=d.SE$Year,y=d.SE$Count))+
+geom_bar(stat="identity", fill="goldenrod1")+
+xlab("Year")+ylab("Number of Tornadoes")+
+ggtitle("Southeast")
+```
+
+```{r}
+ggplot(d.W,aes(x=d.W$Year,y=d.W$Count))+
+geom_bar(stat="identity", fill="forestgreen")+
+xlab("Year")+ylab("Number of Tornadoes")+
+ggtitle("West")
+```
+
+```{r}
+ggplot(d,aes(x=d$Year,y=d$Count))+
+geom_bar(stat="identity", fill="indianred")+
+xlab("Year")+ylab("Number of Tornadoes")+
+ggtitle("United States of America")
+```
+
