@@ -1,0 +1,72 @@
+x=read.csv("C:\\Users\\kavas\\Desktop\\Documents\\Courses\\600_AW\\Project\\Rplot\\Tor_Exp_RegionWise_RPlot.csv")
+ 
+x.MW=subset(x,x$Region=="Mid-West")
+x.NE=subset(x,x$Region=="North-East")
+x.SE=subset(x,x$Region=="South-East")
+x.W=subset(x,x$Region=="Western")
+d.Texas=subset(d,d$State=="TX")
+
+
+Count vs Exports
+
+MidWest
+ggplot(x.MW,aes(x.MW$Year,x.MW$Sum.of.Count))+
+geom_point() + geom_line(colour=”blue”) +
+xlab("Year") + ylab("Sum of Count of Tornadoes") + ggtitle("Mid-West")
+
+ggplot(x.MW,aes(x.MW$Year, x.MW$Average.of.Average.of.F.Scale2))+
+geom_point() + geom_line(colour=”red”)+
+xlab("Year") + ylab("Avg. of F-scale") + ggtitle("Mid-West")
+
+
+
+ggplot(x.MW, aes(x.MW$Year)) + 
+geom_line(aes(y = x.MW$Sum.of.Agricultural.Exports, colour = "Agricultural Products")) +
+geom_point(aes(y = x.MW$Sum.of.Agricultural.Exports, colour = "Agricultural Products")) +
+geom_line(aes(y = x.MW$Sum.of.Plant.Products, colour = "Plant Products")) +
+geom_point(aes(y = x.MW$Sum.of.Plant.Products, colour = "Plant Products")) +
+geom_line(aes(y = x.MW$Sum.of.Animal.Products, colour = "Animal Products")) +
+geom_point(aes(y = x.MW$Sum.of.Animal.Products, colour = "Animal Products")) +
+xlab("Year") + ylab("Sum of Region-wise Exports") + ggtitle("Mid-West") + labs(color='EXPORTS')
+
+
+NorthEast
+
+ggplot(x.NE,aes(x.NE$Year,x.NE$Sum.of.Count))+
+geom_point() + geom_line(colour=”blue”)+
+xlab("Year") + ylab("Sum of Count of Tornadoes") + ggtitle("North-East")
+
+ggplot(x.NE,aes(x.NE$Year,x.NE$ Average.of.Average.of.F.Scale2))+
+geom_point() + geom_line(colour=”red”)+
+xlab("Year") + ylab("Avg. of F-scale") + ggtitle("North-East")
+
+
+ggplot(x.NE, aes(x.NE$Year)) + 
+geom_line(aes(y = x.NE$Sum.of.Agricultural.Exports, colour = "Agricultural Products")) +
+geom_point(aes(y = x.NE$Sum.of.Agricultural.Exports, colour = "Agricultural Products")) +
+geom_line(aes(y = x.NE$Sum.of.Plant.Products, colour = "Plant Products")) +
+geom_point(aes(y = x.NE$Sum.of.Plant.Products, colour = "Plant Products")) +
+geom_line(aes(y = x.NE$Sum.of.Animal.Products, colour = "Animal Products")) +
+geom_point(aes(y = x.NE$Sum.of.Animal.Products, colour = "Animal Products")) +
+xlab("Year") + ylab("Sum of Region-wise Exports") + ggtitle("North-East") + labs(color='EXPORTS')
+
+Texas
+
+ggplot(d.Texas,aes(d.Texas$Year,d.Texas$Count))+
+geom_point() + geom_line(colour=”blue”)+
+xlab("Year") + ylab("Count of Tornadoes") + ggtitle("Texas")
+
+ggplot(d.Texas,aes(d.Texas$Year,d.Texas$Average.of.F.Scale))+
+geom_point() + geom_line(colour=”red”)+
+xlab("Year") + ylab("Avg. of F-scale") + ggtitle("Texas")
+
+
+ggplot(d.Texas, aes(d.Texas$Year)) + 
+geom_line(aes(y = d.Texas$Agricultural.Exports, colour = "Agricultural Products")) +
+geom_point(aes(y = d.Texas$Agricultural.Exports, colour = "Agricultural Products")) +
+geom_line(aes(y = d.Texas$Plant.Products, colour = "Plant Products")) +
+geom_point(aes(y = d.Texas$Plant.Products, colour = "Plant Products")) +
+geom_line(aes(y = d.Texas$Animal.Products, colour = "Animal Products")) +
+geom_point(aes(y = d.Texas$Animal.Products, colour = "Animal Products")) +
+xlab("Year") + ylab("State-wise Exports") + ggtitle("Texas") + labs(color='EXPORTS')
+
